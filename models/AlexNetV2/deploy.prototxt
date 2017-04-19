@@ -1,17 +1,9 @@
-name: "AlexNetV2_bn"
+name: "AlexNetV2"
 layer {
-  name: 'data'
-  type: 'Python'
-  top: 'data'
-  top: 'rois'
-  top: 'labels'
-  top: 'bbox_targets'
-  top: 'bbox_loss_weights'
-  python_param {
-    module: 'roi_data_layer.layer'
-    layer: 'RoIDataLayer'
-    param_str: "'num_classes': 21"
-  }
+  name: "data"
+  type: "Input"
+  top: "data"
+  input_param { shape: { dim: 16 dim: 3 dim: 227 dim: 227 } }
 }
 layer {
   name: "Convolution1"
@@ -136,30 +128,21 @@ layer {
   }
 }
 layer {
-  name: "roi_pool5"
-  type: "ROIPooling"
+  name: "Pooling5"
+  type: "Pooling"
   bottom: "ReLU5"
-  bottom: "rois"
-  top: "pool5"
-  roi_pooling_param {
-    pooled_w: 6
-    pooled_h: 6
-    spatial_scale: 0.0625 # 1/16
+  top: "Pooling5"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
   }
 }
 layer {
   name: "fc6"
   type: "InnerProduct"
-  bottom: "pool5"
+  bottom: "Pooling5"
   top: "fc6"
-  param {
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   inner_product_param {
     num_output: 4096
   }
@@ -184,14 +167,6 @@ layer {
   type: "InnerProduct"
   bottom: "fc6"
   top: "fc7"
-  param {
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   inner_product_param {
     num_output: 4096
   }
@@ -212,69 +187,17 @@ layer {
   }
 }
 layer {
-  name: "cls_score"
+  name: "fc8"
   type: "InnerProduct"
   bottom: "fc7"
-  top: "cls_score"
-  param {
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
+  top: "fc8"
   inner_product_param {
-    num_output: 21
-    weight_filler {
-      type: "gaussian"
-      std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
+    num_output: 1000
   }
 }
 layer {
-  name: "bbox_pred"
-  type: "InnerProduct"
-  bottom: "fc7"
-  top: "bbox_pred"
-  param {
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
-  inner_product_param {
-    num_output: 84
-    weight_filler {
-      type: "gaussian"
-      std: 0.001
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
-  }
-}
-layer {
-  name: "loss_cls"
-  type: "SoftmaxWithLoss"
-  bottom: "cls_score"
-  bottom: "labels"
-  top: "loss_cls"
-  loss_weight: 1
-}
-layer {
-  name: "loss_bbox"
-  type: "SmoothL1Loss"
-  bottom: "bbox_pred"
-  bottom: "bbox_targets"
-  bottom: "bbox_loss_weights"
-  top: "loss_bbox"
-  loss_weight: 1
+  name: "prob"
+  type: "Softmax"
+  bottom: "fc8"
+  top: "prob"
 }
