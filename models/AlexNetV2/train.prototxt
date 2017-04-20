@@ -1,4 +1,4 @@
-name: "AlexNetV2_bn"
+name: "AlexNetV2"
 layer {
   name: 'data'
   type: 'Python'
@@ -14,9 +14,31 @@ layer {
   }
 }
 layer {
+  name: "scaleToUnitInt"
+  type: "Scale"
+  bottom: "data"
+  top: "scaled"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  scale_param {
+    filler {
+      value: 0.00784313725   }
+    bias_term: true
+    bias_filler {
+      value: -1
+    }
+  }
+}
+layer {
   name: "Convolution1"
   type: "Convolution"
-  bottom: "data"
+  bottom: "scaled"
   top: "Convolution1"
   convolution_param {
     num_output: 64
@@ -142,8 +164,8 @@ layer {
   bottom: "rois"
   top: "pool5"
   roi_pooling_param {
-    pooled_w: 7
-    pooled_h: 7
+    pooled_w: 6
+    pooled_h: 6
     spatial_scale: 0.0625 # 1/16
   }
 }
