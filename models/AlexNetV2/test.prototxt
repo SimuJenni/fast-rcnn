@@ -27,10 +27,6 @@ layer {
   scale_param {
     filler {
       value: 0.00784313725   }
-    bias_term: false
-    bias_filler {
-      value: 0
-    }
   }
 }
 layer {
