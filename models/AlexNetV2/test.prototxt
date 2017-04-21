@@ -1,4 +1,4 @@
-name: "CaffeNet"
+name: "AlexNetV2"
 input: "data"
 input_shape {
   dim: 1
@@ -12,23 +12,9 @@ input_shape {
   dim: 5 # [batch ind, x1, y1, x2, y2] zero-based indexing
 }
 layer {
-  name: "scaling"
-  type: "Scale"
-  bottom: "data"
-  top: "scaled"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  scale_param {
-    filler {
-      value: 0.00784313725   }
-  }
-}
-layer {
   name: "Convolution1"
   type: "Convolution"
-  bottom: "scaled"
+  bottom: "data"
   top: "Convolution1"
   convolution_param {
     num_output: 64
