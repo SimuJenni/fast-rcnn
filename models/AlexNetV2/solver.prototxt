@@ -1,4 +1,4 @@
-train_net: "models/AlexNetV2/alexnet_bn.prototxt"
+train_net: "models/AlexNetV2/train.prototxt"
 base_lr: 0.001
 lr_policy: "step"
 gamma: 0.1
