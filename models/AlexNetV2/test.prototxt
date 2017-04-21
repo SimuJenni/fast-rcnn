@@ -12,14 +12,10 @@ input_shape {
   dim: 5 # [batch ind, x1, y1, x2, y2] zero-based indexing
 }
 layer {
-  name: "scaleToUnitInt"
+  name: "scaling"
   type: "Scale"
   bottom: "data"
   top: "scaled"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
   param {
     lr_mult: 0
     decay_mult: 0
