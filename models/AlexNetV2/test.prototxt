@@ -16,9 +16,18 @@ layer {
   type: "Convolution"
   bottom: "data"
   top: "Convolution1"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
   convolution_param {
     num_output: 64
     kernel_size: 11
+    pad: 5
     stride: 4
   }
 }
@@ -40,6 +49,7 @@ layer {
     pool: MAX
     kernel_size: 3
     stride: 2
+    pad: 1
   }
 }
 layer {
@@ -47,6 +57,14 @@ layer {
   type: "Convolution"
   bottom: "Pooling1"
   top: "Convolution2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
   convolution_param {
     num_output: 192
     pad: 2
@@ -71,6 +89,7 @@ layer {
     pool: MAX
     kernel_size: 3
     stride: 2
+    pad: 1
   }
 }
 layer {
@@ -78,6 +97,14 @@ layer {
   type: "Convolution"
   bottom: "Pooling2"
   top: "Convolution3"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
   convolution_param {
     num_output: 384
     pad: 1
@@ -98,6 +125,14 @@ layer {
   type: "Convolution"
   bottom: "ReLU3"
   top: "Convolution4"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
   convolution_param {
     num_output: 384
     pad: 1
@@ -118,6 +153,14 @@ layer {
   type: "Convolution"
   bottom: "ReLU4"
   top: "Convolution5"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
   convolution_param {
     num_output: 256
     pad: 1
