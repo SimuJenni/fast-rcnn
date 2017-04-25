@@ -3,7 +3,9 @@ layer {
   name: "data"
   type: "Input"
   top: "data"
+  top: "label"
   input_param { shape: { dim: 16 dim: 3 dim: 227 dim: 227 } }
+  input_param { shape: { dim: 16 dim: 1} }
 }
 layer {
   name: "conv1"
@@ -239,8 +241,9 @@ layer {
   }
 }
 layer {
-  name: "prob"
-  type: "Softmax"
+  name: "loss"
+  type: "SoftmaxWithLoss"
   bottom: "fc8"
-  top: "prob"
+  bottom: "label"
+  top: "loss"
 }
