@@ -174,9 +174,6 @@ layer {
   type: "ReLU"
   bottom: "conv5"
   top: "conv5"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "roi_pool5"
