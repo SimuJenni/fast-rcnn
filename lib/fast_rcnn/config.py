@@ -61,7 +61,7 @@ __C.TRAIN.BG_THRESH_LO = 0.1
 __C.TRAIN.USE_FLIPPED = True
 
 # Train bounding-box regressors
-__C.TRAIN.BBOX_REG = False
+__C.TRAIN.BBOX_REG = True
 
 # Overlap required between a ROI and ground-truth box in order for that ROI to
 # be used as a bounding-box regression training example
@@ -100,7 +100,7 @@ __C.TEST.NMS = 0.3
 __C.TEST.SVM = False
 
 # Test using bounding-box regressors
-__C.TEST.BBOX_REG = False
+__C.TEST.BBOX_REG = True
 
 #
 # MISC
