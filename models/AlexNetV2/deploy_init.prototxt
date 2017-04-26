@@ -169,6 +169,9 @@ layer {
   type: "ReLU"
   bottom: "conv5"
   top: "conv5"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "Pooling5"
@@ -230,18 +233,43 @@ layer {
   }
 }
 layer {
-  name: "fc8"
+  name: "cls_score"
   type: "InnerProduct"
   bottom: "fc7"
-  top: "fc8"
+  top: "cls_score"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
   inner_product_param {
-    num_output: 1000
+    num_output: 21
+  }
+}
+layer {
+  name: "bbox_pred"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "bbox_pred"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 84
   }
 }
 layer {
   name: "loss"
   type: "SoftmaxWithLoss"
-  bottom: "fc8"
+  bottom: "cls_score"
   bottom: "label"
   top: "loss"
 }
