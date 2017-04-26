@@ -201,12 +201,18 @@ layer {
   type: "InnerProduct"
   bottom: "fc7"
   top: "cls_score"
+  inner_product_param {
+    num_output: 21
+  }
 }
 layer {
   name: "bbox_pred"
   type: "InnerProduct"
   bottom: "fc7"
   top: "bbox_pred"
+  inner_product_param {
+    num_output: 84
+  }
 }
 layer {
   name: "cls_prob"
