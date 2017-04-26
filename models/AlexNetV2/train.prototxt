@@ -14,9 +14,25 @@ layer {
   }
 }
 layer {
+  name: "scale"
+  type: "Scale"
+  bottom: "data"
+  top: "scaled"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  scale_param {
+    filler {
+      value: 0.007843137254902
+    }
+    bias_term: false
+  }
+}
+layer {
   name: "conv1"
   type: "Convolution"
-  bottom: "data"
+  bottom: "scaled"
   top: "conv1"
   param {
     lr_mult: 1

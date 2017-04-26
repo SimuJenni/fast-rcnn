@@ -12,9 +12,21 @@ input_shape {
   dim: 5 # [batch ind, x1, y1, x2, y2] zero-based indexing
 }
 layer {
+  name: "scale"
+  type: "Scale"
+  bottom: "data"
+  top: "scaled"
+  scale_param {
+    filler {
+      value: 0.007843137254902
+    }
+    bias_term: false
+  }
+}
+layer {
   name: "conv1"
   type: "Convolution"
-  bottom: "data"
+  bottom: "scaled"
   top: "conv1"
   convolution_param {
     num_output: 64
