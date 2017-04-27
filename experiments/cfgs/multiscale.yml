@@ -5,6 +5,6 @@ TRAIN:
   SNAPSHOT_INFIX: multiscale
   BBOX_REG: False
 TEST:
-  SCALES: !!python/tuple [864]
+  SCALES: !!python/tuple [688]
   MAX_SIZE: 2000
   BBOX_REG: False
