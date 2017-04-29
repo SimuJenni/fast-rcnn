@@ -4,9 +4,7 @@ TRAIN:
   MAX_SIZE: 2000
   SNAPSHOT_INFIX: multiscale
   BBOX_REG: False
-  IMS_PER_BATCH: 4
-  BATCH_SIZE: 256
 TEST:
-  SCALES: !!python/tuple [688]
+  SCALES: !!python/tuple [600]
   MAX_SIZE: 2000
   BBOX_REG: False
