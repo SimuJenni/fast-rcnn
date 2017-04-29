@@ -14,7 +14,7 @@ layer {
 layer {
   name: "conv1"
   type: "Convolution"
-  bottom: "scaled"
+  bottom: "data"
   top: "conv1"
   param {
     lr_mult: 0
