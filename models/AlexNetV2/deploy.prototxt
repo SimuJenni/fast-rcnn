@@ -6,6 +6,12 @@ layer {
   input_param { shape: { dim: 16 dim: 3 dim: 227 dim: 227 } }
 }
 layer {
+  name: "label"
+  type: "Input"
+  top: "label"
+  input_param { shape: { dim: 16 dim: 1 } }
+}
+layer {
   name: "conv1"
   type: "Convolution"
   bottom: "data"
