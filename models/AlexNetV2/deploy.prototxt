@@ -171,15 +171,14 @@ layer {
   }
 }
 layer {
-  name: "roi_pool5"
-  type: "ROIPooling"
+  name: "pool5"
+  type: "Pooling"
   bottom: "conv5"
-  bottom: "rois"
   top: "pool5"
-  roi_pooling_param {
-    pooled_w: 6
-    pooled_h: 6
-    spatial_scale: 0.0625 # 1/16
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
   }
 }
 layer {
