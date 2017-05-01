@@ -1,8 +1,8 @@
-EXP_DIR: multiscale
+EXP_DIR: multiscale_magic
 TRAIN:
   SCALES: !!python/tuple [480, 576, 688, 864, 1200]
   MAX_SIZE: 2000
-  SNAPSHOT_INFIX: multiscale
+  SNAPSHOT_INFIX: multiscale_magic
 TEST:
   SCALES: !!python/tuple [600]
   MAX_SIZE: 2000
