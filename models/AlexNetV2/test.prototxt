@@ -60,7 +60,7 @@ layer {
   type: "ReLU"
   bottom: "conv2"
   top: "conv2"
-  relu_param{
+  relu_param {
     negative_slope: 0.2
   }
 }
@@ -236,7 +236,6 @@ layer {
       value: 0
     }
   }
-}
 }
 layer {
   name: "bbox_pred"
