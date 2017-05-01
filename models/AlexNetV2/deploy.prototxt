@@ -1,10 +1,15 @@
 name: "AlexNetV2"
-force_backward: true
 layer {
   name: "data"
   type: "Input"
   top: "data"
   input_param { shape: { dim: 128 dim: 3 dim: 192 dim: 192 } }
+}
+layer {
+  name: "labels"
+  type: "Input"
+  top: "labels"
+  input_param { shape: { dim: 128 dim: 1 } }
 }
 layer {
   name: "conv1"
@@ -275,6 +280,7 @@ layer {
   name: "loss_cls"
   type: "SoftmaxWithLoss"
   bottom: "cls_score"
+  bottom: "labels"
   top: "loss_cls"
   loss_weight: 1
 }
