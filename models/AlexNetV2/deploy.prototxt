@@ -6,9 +6,9 @@ layer {
   input_param { shape: { dim: 16 dim: 3 dim: 227 dim: 227 } }
 }
 layer {
-  name: "label"
+  name: "labels"
   type: "Input"
-  top: "label"
+  top: "labels"
   input_param { shape: { dim: 16 dim: 1 } }
 }
 layer {
