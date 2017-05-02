@@ -7,6 +7,12 @@ layer {
   input_param { shape: { dim: 128 dim: 3 dim: 192 dim: 192 } }
 }
 layer {
+  name: "bbox_pred"
+  type: "Input"
+  top: "bbox_pred"
+  input_param { shape: { dim: 128 dim: 84 } }
+}
+layer {
   name: "conv1"
   type: "Convolution"
   bottom: "data"
@@ -261,13 +267,22 @@ layer {
   }
   inner_product_param {
     num_output: 21
-    weight_filler {
-      type: "gaussian"
-      std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
+  }
+}
+layer {
+  name: "bbox_pred"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "bbox_pred"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 84
   }
 }
