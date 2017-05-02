@@ -4,12 +4,8 @@ layer {
   name: "data"
   type: "Input"
   top: "data"
-  input_param { shape: { dim: 128 dim: 3 dim: 192 dim: 192 } }
-}
-layer {
-  name: "bbox_pred"
-  type: "Input"
   top: "bbox_pred"
+  input_param { shape: { dim: 128 dim: 3 dim: 192 dim: 192 } }
   input_param { shape: { dim: 128 dim: 84 } }
 }
 layer {
