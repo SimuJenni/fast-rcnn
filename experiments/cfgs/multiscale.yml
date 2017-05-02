@@ -4,5 +4,5 @@ TRAIN:
   MAX_SIZE: 2000
   SNAPSHOT_INFIX: multiscale_magic
 TEST:
-  SCALES: !!python/tuple [600]
+  SCALES: !!python/tuple [864]
   MAX_SIZE: 2000
