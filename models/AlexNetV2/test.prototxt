@@ -28,9 +28,6 @@ layer {
   type: "ReLU"
   bottom: "conv1"
   top: "conv1"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "pool1"
@@ -60,9 +57,6 @@ layer {
   type: "ReLU"
   bottom: "conv2"
   top: "conv2"
-  relu_param {
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "pool2"
@@ -92,9 +86,6 @@ layer {
   type: "ReLU"
   bottom: "conv3"
   top: "conv3"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "conv4"
@@ -112,9 +103,6 @@ layer {
   type: "ReLU"
   bottom: "conv4"
   top: "conv4"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "conv5"
@@ -132,9 +120,6 @@ layer {
   type: "ReLU"
   bottom: "conv5"
   top: "conv5"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "roi_pool5"
