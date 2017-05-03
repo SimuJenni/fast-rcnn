@@ -31,6 +31,9 @@ layer {
   type: "ReLU"
   bottom: "Convolution1"
   top: "Convolution1"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "pool1"
@@ -68,6 +71,9 @@ layer {
   type: "ReLU"
   bottom: "Convolution2"
   top: "Convolution2"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "pool2"
@@ -105,6 +111,9 @@ layer {
   type: "ReLU"
   bottom: "Convolution3"
   top: "Convolution3"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "conv4"
@@ -130,6 +139,9 @@ layer {
   type: "ReLU"
   bottom: "Convolution4"
   top: "Convolution4"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "conv5"
@@ -155,6 +167,9 @@ layer {
   type: "ReLU"
   bottom: "Convolution5"
   top: "Convolution5"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "pool5"
@@ -189,6 +204,9 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct1"
   top: "InnerProduct1"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "drop6"
@@ -221,6 +239,9 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct2"
   top: "InnerProduct2"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "drop7"
