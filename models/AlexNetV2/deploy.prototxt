@@ -2,8 +2,8 @@ name: "AlexNetV2"
 input: "data"
 input_dim: 16
 input_dim: 3
-input_dim: 227
-input_dim: 227
+input_dim: 192
+input_dim: 192
 layer {
   name: "conv1"
   type: "Convolution"
