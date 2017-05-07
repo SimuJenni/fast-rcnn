@@ -4,6 +4,12 @@ layer {
   name: "data"
   type: "Input"
   top: "data"
+  transform_param {
+    mirror: true
+    crop_size: 227
+    mean_value: [127.5, 127.5, 127.5]
+    scale: 0.00784313725
+  }
   input_param { shape: { dim: 128 dim: 3 dim: 227 dim: 227 } }
 }
 layer {
