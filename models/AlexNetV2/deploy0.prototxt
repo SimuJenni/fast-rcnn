@@ -2,7 +2,7 @@ name: "AlexNetV2"
 force_backward: true
 layer {
   name: "data"
-  type: "Input"
+  type: "Data"
   top: "data"
   top: "label"
   include {
