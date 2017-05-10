@@ -5,26 +5,8 @@ layer {
   type: "Data"
   top: "data"
   top: "label"
-  include {
-    phase: TRAIN
-  }
   transform_param {
     mirror: true
-    crop_size: 227
-    mean_value: [127.5, 127.5, 127.5]
-    scale: 0.00784313725
-  }
-}
-layer {
-  name: "data"
-  type: "Data"
-  top: "data"
-  top: "label"
-  include {
-    phase: TEST
-  }
-  transform_param {
-    mirror: false
     crop_size: 227
     mean_value: [127.5, 127.5, 127.5]
     scale: 0.00784313725
