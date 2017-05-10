@@ -2,15 +2,31 @@ name: "AlexNetV2"
 force_backward: true
 layer {
   name: "data"
-  type: "Input"
+  type: "Data"
   top: "data"
+  top: "label"
+  include {
+    phase: TRAIN
+  }
   transform_param {
     mirror: true
     crop_size: 227
     mean_value: [127.5, 127.5, 127.5]
-    scale: 0.00784313725
   }
-  input_param { shape: { dim: 128 dim: 3 dim: 227 dim: 227 } }
+}
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  top: "label"
+  include {
+    phase: TEST
+  }
+  transform_param {
+    mirror: false
+    crop_size: 227
+    mean_value: [127.5, 127.5, 127.5]
+  }
 }
 layer {
   name: "conv1"
@@ -23,7 +39,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   convolution_param {
     num_output: 64
@@ -62,7 +78,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   convolution_param {
     num_output: 192
@@ -101,7 +117,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   convolution_param {
     num_output: 384
@@ -129,7 +145,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   convolution_param {
     num_output: 384
@@ -157,7 +173,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   convolution_param {
     num_output: 256
@@ -196,7 +212,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   inner_product_param {
     num_output: 4096
@@ -207,6 +223,9 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct1"
   top: "InnerProduct1"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "drop6"
@@ -228,7 +247,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   inner_product_param {
     num_output: 4096
@@ -239,6 +258,9 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct2"
   top: "InnerProduct2"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "drop7"
@@ -250,33 +272,36 @@ layer {
   }
 }
 layer {
-  name: "cls_score"
+  name: "fc8"
   type: "InnerProduct"
   bottom: "InnerProduct2"
-  top: "cls_score"
+  top: "fc8"
   param {
     lr_mult: 1
     decay_mult: 1
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   inner_product_param {
-    num_output: 21
-    weight_filler {
-      type: "gaussian"
-      std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
+    num_output: 20
   }
 }
 layer {
-  name: "prob"
-  type: "Softmax"
-  bottom: "cls_score"
-  top: "prob"
+  name: "accuracy"
+  type: "Accuracy"
+  bottom: "fc8"
+  bottom: "label"
+  top: "accuracy"
+  include {
+    phase: TEST
+  }
+}
+layer {
+  name: "loss"
+  type: "SoftmaxWithLoss"
+  bottom: "fc8"
+  bottom: "label"
+  top: "loss"
 }
