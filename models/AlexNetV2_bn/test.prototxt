@@ -36,6 +36,9 @@ layer {
   type: "ReLU"
   bottom: "Convolution1"
   top: "Convolution1"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "pool1"
@@ -69,19 +72,13 @@ layer {
   }
 }
 layer {
-    name: "BatchNorm2"
-    type: "BatchNorm"
-    bottom: "Convolution2"
-    top: "Convolution2"
-    batch_norm_param {
-        use_global_stats: true
-    }
-}
-layer {
   name: "relu2"
   type: "ReLU"
   bottom: "Convolution2"
   top: "Convolution2"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "pool2"
@@ -115,19 +112,13 @@ layer {
   }
 }
 layer {
-    name: "BatchNorm3"
-    type: "BatchNorm"
-    bottom: "Convolution3"
-    top: "Convolution3"
-    batch_norm_param {
-        use_global_stats: true
-    }
-}
-layer {
   name: "relu3"
   type: "ReLU"
   bottom: "Convolution3"
   top: "Convolution3"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "conv4"
@@ -149,19 +140,13 @@ layer {
   }
 }
 layer {
-    name: "BatchNorm4"
-    type: "BatchNorm"
-    bottom: "Convolution4"
-    top: "Convolution4"
-    batch_norm_param {
-        use_global_stats: true
-    }
-}
-layer {
   name: "relu4"
   type: "ReLU"
   bottom: "Convolution4"
   top: "Convolution4"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "conv5"
@@ -183,19 +168,13 @@ layer {
   }
 }
 layer {
-    name: "BatchNorm5"
-    type: "BatchNorm"
-    bottom: "Convolution5"
-    top: "Convolution5"
-    batch_norm_param {
-        use_global_stats: true
-    }
-}
-layer {
   name: "relu5"
   type: "ReLU"
   bottom: "Convolution5"
   top: "Convolution5"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "roi_pool5"
@@ -231,9 +210,6 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct1"
   top: "InnerProduct1"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "drop6"
@@ -266,9 +242,6 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct2"
   top: "InnerProduct2"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "drop7"

@@ -32,6 +32,7 @@ def _get_image_blob(im):
     """
     im_orig = im.astype(np.float32, copy=True)
     im_orig -= cfg.PIXEL_MEANS
+    im_orig *= cfg.SCALE
 
     im_shape = im_orig.shape
     im_size_min = np.min(im_shape[0:2])
