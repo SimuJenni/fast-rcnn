@@ -2,15 +2,9 @@ name: "AlexNetV2"
 force_backward: true
 layer {
   name: "data"
-  type: "Data"
+  type: "Input"
   top: "data"
-  top: "label"
-  transform_param {
-    mirror: true
-    crop_size: 227
-    mean_value: [127.5, 127.5, 127.5]
-    scale: 0.00784313725
-  }
+  input_param { shape: { dim: 16 dim: 3 dim: 227 dim: 227 } }
 }
 layer {
   name: "conv1"
@@ -434,10 +428,10 @@ layer {
   }
 }
 layer {
-  name: "fc8"
+  name: "cls_score"
   type: "InnerProduct"
   bottom: "InnerProduct2"
-  top: "fc8"
+  top: "cls_score"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -459,19 +453,8 @@ layer {
   }
 }
 layer {
-  name: "accuracy"
-  type: "Accuracy"
-  bottom: "fc8"
-  bottom: "label"
-  top: "accuracy"
-  include {
-    phase: TEST
-  }
-}
-layer {
-  name: "loss"
-  type: "SoftmaxWithLoss"
-  bottom: "fc8"
-  bottom: "label"
-  top: "loss"
+  name: "prob"
+  type: "Softmax"
+  bottom: "cls_score"
+  top: "prob"
 }
