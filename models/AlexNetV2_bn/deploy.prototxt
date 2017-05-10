@@ -5,6 +5,9 @@ layer {
   type: "Data"
   top: "data"
   top: "label"
+  include {
+    phase: TRAIN
+  }
   transform_param {
     mirror: true
     crop_size: 227
