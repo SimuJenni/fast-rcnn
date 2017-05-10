@@ -24,7 +24,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   convolution_param {
     num_output: 64
@@ -65,7 +65,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   convolution_param {
     num_output: 192
@@ -105,7 +105,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   convolution_param {
     num_output: 384
@@ -133,7 +133,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   convolution_param {
     num_output: 384
@@ -161,7 +161,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   convolution_param {
     num_output: 256
@@ -201,18 +201,10 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   inner_product_param {
     num_output: 4096
-    weight_filler {
-      type: "gaussian"
-      std: 0.005
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.1
-    }
   }
 }
 layer {
@@ -220,6 +212,9 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct1"
   top: "InnerProduct1"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "drop6"
@@ -241,18 +236,10 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   inner_product_param {
     num_output: 4096
-    weight_filler {
-      type: "gaussian"
-      std: 0.005
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.1
-    }
   }
 }
 layer {
@@ -260,6 +247,9 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct2"
   top: "InnerProduct2"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "drop7"
