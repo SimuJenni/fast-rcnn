@@ -374,14 +374,6 @@ layer {
   }
   inner_product_param {
     num_output: 4096
-    weight_filler {
-      type: "gaussian"
-      std: 0.005
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.1
-    }
   }
 }
 layer {
@@ -414,14 +406,6 @@ layer {
   }
   inner_product_param {
     num_output: 4096
-    weight_filler {
-      type: "gaussian"
-      std: 0.005
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.1
-    }
   }
 }
 layer {
@@ -453,31 +437,6 @@ layer {
     decay_mult: 0
   }
   inner_product_param {
-    num_output: 21
-    weight_filler {
-      type: "gaussian"
-      std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
+    num_output: 20
   }
-}
-layer {
-  name: "accuracy"
-  type: "Accuracy"
-  bottom: "fc8"
-  bottom: "label"
-  top: "accuracy"
-  include {
-    phase: TEST
-  }
-}
-layer {
-  name: "loss"
-  type: "SoftmaxWithLoss"
-  bottom: "fc8"
-  bottom: "label"
-  top: "loss"
 }
