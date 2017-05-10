@@ -24,7 +24,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 1
+    decay_mult: 0
   }
   convolution_param {
     num_output: 64
@@ -65,7 +65,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 1
+    decay_mult: 0
   }
   convolution_param {
     num_output: 192
@@ -105,7 +105,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 1
+    decay_mult: 0
   }
   convolution_param {
     num_output: 384
@@ -133,7 +133,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 1
+    decay_mult: 0
   }
   convolution_param {
     num_output: 384
@@ -161,7 +161,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 1
+    decay_mult: 0
   }
   convolution_param {
     num_output: 256
@@ -201,7 +201,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 1
+    decay_mult: 0
   }
   inner_product_param {
     num_output: 4096
@@ -236,7 +236,7 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 1
+    decay_mult: 0
   }
   inner_product_param {
     num_output: 4096
