@@ -27,7 +27,7 @@ __C = edict()
 #   from fast_rcnn_config import cfg
 cfg = __C
 
-__C.SCALE = 0.00784313725
+__C.SCALE = 1.0
 
 #
 # Training options
