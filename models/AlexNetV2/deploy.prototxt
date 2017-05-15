@@ -272,10 +272,10 @@ layer {
   }
 }
 layer {
-  name: "cls"
+  name: "fc8"
   type: "InnerProduct"
   bottom: "InnerProduct2"
-  top: "cls"
+  top: "fc8"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -291,7 +291,7 @@ layer {
 layer {
   name: "accuracy"
   type: "Accuracy"
-  bottom: "cls"
+  bottom: "fc8"
   bottom: "label"
   top: "accuracy"
   include {
@@ -301,7 +301,7 @@ layer {
 layer {
   name: "loss"
   type: "SoftmaxWithLoss"
-  bottom: "cls"
+  bottom: "fc8"
   bottom: "label"
   top: "loss"
 }
