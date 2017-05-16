@@ -47,7 +47,7 @@ layer {
     num_output: 64
     kernel_size: 11
     stride: 4
-    pad: 3
+    pad: 5
   }
 }
 layer {
