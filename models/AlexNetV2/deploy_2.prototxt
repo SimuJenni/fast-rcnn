@@ -226,9 +226,6 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct1"
   top: "InnerProduct1"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "drop6"
@@ -261,9 +258,6 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct2"
   top: "InnerProduct2"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "drop7"
