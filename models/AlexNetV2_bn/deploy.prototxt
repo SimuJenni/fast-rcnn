@@ -370,52 +370,10 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   inner_product_param {
     num_output: 4096
-  }
-}
-layer {
-    name: "BatchNorm6"
-    type: "BatchNorm"
-    bottom: "InnerProduct1"
-    top: "InnerProduct1"
-    batch_norm_param {
-        use_global_stats: true
-        eps: 0.001
-    }
-    param {
-        lr_mult: 0
-        decay_mult: 0
-    }
-    param {
-        lr_mult: 0
-        decay_mult: 0
-    }
-    param {
-        lr_mult: 0
-        decay_mult: 0
-    }
-}
-layer {
-  name: "Scale6"
-  type: "Scale"
-  bottom: "InnerProduct1"
-  top: "InnerProduct1"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  scale_param {
-    filler {
-      value: 1.0
-    }
-    bias_term: true
   }
 }
 layer {
@@ -444,52 +402,10 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   inner_product_param {
     num_output: 4096
-  }
-}
-layer {
-    name: "BatchNorm7"
-    type: "BatchNorm"
-    bottom: "InnerProduct2"
-    top: "InnerProduct2"
-    batch_norm_param {
-        use_global_stats: true
-        eps: 0.001
-    }
-    param {
-        lr_mult: 0
-        decay_mult: 0
-    }
-    param {
-        lr_mult: 0
-        decay_mult: 0
-    }
-    param {
-        lr_mult: 0
-        decay_mult: 0
-    }
-}
-layer {
-  name: "Scale7"
-  type: "Scale"
-  bottom: "InnerProduct2"
-  top: "InnerProduct2"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  scale_param {
-    filler {
-      value: 1.0
-    }
-    bias_term: true
   }
 }
 layer {
@@ -508,19 +424,36 @@ layer {
   }
 }
 layer {
-  name: "fc8"
+  name: "fc8_cls"
   type: "InnerProduct"
   bottom: "InnerProduct2"
-  top: "fc8"
+  top: "fc8_cls"
   param {
     lr_mult: 1
     decay_mult: 1
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   inner_product_param {
     num_output: 20
   }
+}
+layer {
+  name: "accuracy"
+  type: "Accuracy"
+  bottom: "fc8_cls"
+  bottom: "label"
+  top: "accuracy"
+  include {
+    phase: TEST
+  }
+}
+layer {
+  name: "loss"
+  type: "SoftmaxWithLoss"
+  bottom: "fc8_cls"
+  bottom: "label"
+  top: "loss"
 }
