@@ -3,8 +3,8 @@ input: "data"
 input_shape {
   dim: 1
   dim: 3
-  dim: 227
-  dim: 227
+  dim: 224
+  dim: 224
 }
 input: "rois"
 input_shape {
@@ -29,6 +29,7 @@ layer {
     pad: 5
     kernel_size: 11
     stride: 4
+    pad: 3
   }
 }
 layer {
