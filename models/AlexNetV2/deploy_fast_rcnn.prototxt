@@ -5,7 +5,6 @@ layer {
   type: "Data"
   top: "data"
   top: "label"
-  top: "bbox_targets"
   include {
     phase: TRAIN
   }
@@ -320,12 +319,4 @@ layer {
   bottom: "cls_score"
   bottom: "label"
   top: "loss"
-}
-layer {
-  name: "loss_bbox"
-  type: "SmoothL1Loss"
-  bottom: "bbox_pred"
-  bottom: "bbox_targets"
-  top: "loss_bbox"
-  loss_weight: 1
 }
