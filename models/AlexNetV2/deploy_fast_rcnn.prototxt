@@ -305,7 +305,7 @@ layer {
 layer {
   name: "accuracy"
   type: "Accuracy"
-  bottom: "fc8_cls"
+  bottom: "cls_score"
   bottom: "label"
   top: "accuracy"
   include {
@@ -315,7 +315,7 @@ layer {
 layer {
   name: "loss"
   type: "SoftmaxWithLoss"
-  bottom: "fc8_cls"
+  bottom: "cls_score"
   bottom: "label"
   top: "loss"
 }
