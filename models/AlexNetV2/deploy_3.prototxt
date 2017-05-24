@@ -14,6 +14,11 @@ layer {
     mean_value: [127.5, 127.5, 127.5]
     scale: 0.00784313725
   }
+  data_param {
+    source: "/data/cvg/simon/data/voc_trainval"
+    batch_size: 16
+    backend: LMDB
+  }
 }
 layer {
   name: "data"
