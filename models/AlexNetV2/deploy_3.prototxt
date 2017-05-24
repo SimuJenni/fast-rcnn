@@ -15,7 +15,7 @@ layer {
     scale: 0.00784313725
   }
   data_param {
-    source: "/data/cvg/simon/data/voc_trainval"
+    source: "/data/cvg/simon/data/caffe/voc_trainval"
     batch_size: 16
     backend: LMDB
   }
@@ -35,7 +35,7 @@ layer {
     scale: 0.00784313725
   }
   data_param {
-    source: "/data/cvg/simon/data/voc_trainval"
+    source: "/data/cvg/simon/data/caffe/voc_trainval"
     batch_size: 16
     backend: LMDB
   }
