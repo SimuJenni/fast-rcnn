@@ -12,11 +12,7 @@ layer {
     mirror: true
     crop_size: 224
     mean_value: [127.5, 127.5, 127.5]
-  }
-  data_param {
-    source: "/data/cvg/simon/data/caffe/voc_trainval"
-    batch_size: 16
-    backend: LMDB
+    scale: 0.00784313725
   }
 }
 layer {
@@ -31,11 +27,7 @@ layer {
     mirror: false
     crop_size: 224
     mean_value: [127.5, 127.5, 127.5]
-  }
-  data_param {
-    source: "/data/cvg/simon/data/caffe/voc_trainval"
-    batch_size: 16
-    backend: LMDB
+    scale: 0.00784313725
   }
 }
 layer {
