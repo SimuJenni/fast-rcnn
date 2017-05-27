@@ -10,8 +10,8 @@ layer {
   }
   transform_param {
     mirror: true
-    crop_size: 224
-    mean_value: [127.5, 127.5, 127.5]
+    crop_size: 227
+    mean_value: [104,117,123]
     scale: 0.00784313725
   }
   data_param {
@@ -30,8 +30,9 @@ layer {
   }
   transform_param {
     mirror: false
-    crop_size: 224
-    mean_value: [127.5, 127.5, 127.5]
+    crop_size: 227
+    mean_value: [104,117,123]
+    scale: 0.00784313725
   }
   data_param {
     source: "/data/cvg/simon/data/caffe/voc_trainval"
@@ -56,7 +57,6 @@ layer {
     num_output: 64
     kernel_size: 11
     stride: 4
-    pad: 3
   }
 }
 layer {
