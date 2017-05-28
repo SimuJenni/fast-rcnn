@@ -10,12 +10,12 @@ layer {
   }
   transform_param {
     mirror: true
-    crop_size: 224
+    crop_size: 227
     mean_value: [127.5, 127.5, 127.5]
   }
   data_param {
     source: "/data/cvg/simon/data/caffe/voc_trainval"
-    batch_size: 16
+    batch_size: 512
     backend: LMDB
   }
 }
@@ -29,12 +29,12 @@ layer {
   }
   transform_param {
     mirror: false
-    crop_size: 224
+    crop_size: 227
     mean_value: [127.5, 127.5, 127.5]
   }
   data_param {
     source: "/data/cvg/simon/data/caffe/voc_trainval"
-    batch_size: 16
+    batch_size: 512
     backend: LMDB
   }
 }
@@ -55,7 +55,6 @@ layer {
     num_output: 64
     kernel_size: 11
     stride: 4
-    pad: 3
   }
 }
 layer {
@@ -234,6 +233,9 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct1"
   top: "InnerProduct1"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "drop6"
@@ -266,6 +268,9 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct2"
   top: "InnerProduct2"
+  relu_param{
+    negative_slope: 0.2
+  }
 }
 layer {
   name: "drop7"
