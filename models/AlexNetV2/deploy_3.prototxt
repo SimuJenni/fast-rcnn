@@ -15,7 +15,7 @@ layer {
   }
   data_param {
     source: "/data/cvg/simon/data/caffe/voc_trainval"
-    batch_size: 16
+    batch_size: 512
     backend: LMDB
   }
 }
@@ -34,7 +34,7 @@ layer {
   }
   data_param {
     source: "/data/cvg/simon/data/caffe/voc_trainval"
-    batch_size: 16
+    batch_size: 512
     backend: LMDB
   }
 }
