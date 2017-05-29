@@ -10,7 +10,7 @@ layer {
   }
   transform_param {
     mirror: true
-    crop_size: 224
+    crop_size: 227
     mean_value: [127.5, 127.5, 127.5]
   }
   data_param {
@@ -55,7 +55,6 @@ layer {
     num_output: 64
     kernel_size: 11
     stride: 4
-    pad: 3
   }
 }
 layer {
