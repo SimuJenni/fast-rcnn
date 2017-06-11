@@ -1,15 +1,44 @@
 name: "AlexNetV2"
-input: "data"
-input_shape {
-  dim: 1
-  dim: 3
-  dim: 227
-  dim: 227
+force_backward: true
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  top: "label"
+  include {
+    phase: TRAIN
+  }
+  transform_param {
+    mirror: true
+    crop_size: 227
+    mean_value: [127.5, 127.5, 127.5]
+    scale: 0.00784313725
+  }
+  data_param {
+    source: "/data/cvg/simon/data/caffe/voc_trainval"
+    batch_size: 512
+    backend: LMDB
+  }
 }
-input: "rois"
-input_shape {
-  dim: 1 # to be changed on-the-fly to num ROIs
-  dim: 5 # [batch ind, x1, y1, x2, y2] zero-based indexing
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  top: "label"
+  include {
+    phase: TEST
+  }
+  transform_param {
+    mirror: false
+    crop_size: 227
+    mean_value: [127.5, 127.5, 127.5]
+    scale: 0.00784313725
+  }
+  data_param {
+    source: "/data/cvg/simon/data/caffe/voc_trainval"
+    batch_size: 512
+    backend: LMDB
+  }
 }
 layer {
   name: "conv1"
@@ -22,11 +51,10 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   convolution_param {
-    num_output: 64
-    pad: 5
+    num_output: 96
     kernel_size: 11
     stride: 4
   }
@@ -36,9 +64,6 @@ layer {
   type: "ReLU"
   bottom: "Convolution1"
   top: "Convolution1"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "pool1"
@@ -49,13 +74,23 @@ layer {
     pool: MAX
     kernel_size: 3
     stride: 2
-    pad: 1
+  }
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "Pooling1"
+  top: "norm1"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
   }
 }
 layer {
   name: "conv2"
   type: "Convolution"
-  bottom: "Pooling1"
+  bottom: "norm1"
   top: "Convolution2"
   param {
     lr_mult: 1
@@ -66,9 +101,10 @@ layer {
     decay_mult: 1
   }
   convolution_param {
-    num_output: 192
+    num_output: 256
     pad: 2
     kernel_size: 5
+    group: 2
   }
 }
 layer {
@@ -76,9 +112,6 @@ layer {
   type: "ReLU"
   bottom: "Convolution2"
   top: "Convolution2"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "pool2"
@@ -89,13 +122,23 @@ layer {
     pool: MAX
     kernel_size: 3
     stride: 2
-    pad: 1
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "Pooling2"
+  top: "norm2"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
   }
 }
 layer {
   name: "conv3"
   type: "Convolution"
-  bottom: "Pooling2"
+  bottom: "norm2"
   top: "Convolution3"
   param {
     lr_mult: 1
@@ -116,9 +159,6 @@ layer {
   type: "ReLU"
   bottom: "Convolution3"
   top: "Convolution3"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "conv4"
@@ -137,6 +177,7 @@ layer {
     num_output: 384
     pad: 1
     kernel_size: 3
+    group: 2
   }
 }
 layer {
@@ -144,9 +185,6 @@ layer {
   type: "ReLU"
   bottom: "Convolution4"
   top: "Convolution4"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "conv5"
@@ -165,6 +203,7 @@ layer {
     num_output: 256
     pad: 1
     kernel_size: 3
+    group: 2
   }
 }
 layer {
@@ -172,26 +211,22 @@ layer {
   type: "ReLU"
   bottom: "Convolution5"
   top: "Convolution5"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
-  name: "roi_pool5"
-  type: "ROIPooling"
+  name: "pool5"
+  type: "Pooling"
   bottom: "Convolution5"
-  bottom: "rois"
-  top: "pool5"
-  roi_pooling_param {
-    pooled_w: 6
-    pooled_h: 6
-    spatial_scale: 0.0625 # 1/16
+  top: "Pooling3"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
   }
 }
 layer {
   name: "fc6"
   type: "InnerProduct"
-  bottom: "pool5"
+  bottom: "Pooling3"
   top: "InnerProduct1"
   param {
     lr_mult: 1
@@ -253,10 +288,10 @@ layer {
   }
 }
 layer {
-  name: "cls_score"
+  name: "fc8_cls"
   type: "InnerProduct"
   bottom: "InnerProduct2"
-  top: "cls_score"
+  top: "fc8_cls"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -266,29 +301,23 @@ layer {
     decay_mult: 1
   }
   inner_product_param {
-    num_output: 21
+    num_output: 20
   }
 }
 layer {
-  name: "bbox_pred"
-  type: "InnerProduct"
-  bottom: "InnerProduct2"
-  top: "bbox_pred"
-  param {
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    lr_mult: 2
-    decay_mult: 1
-  }
-  inner_product_param {
-    num_output: 84
+  name: "accuracy"
+  type: "Accuracy"
+  bottom: "fc8_cls"
+  bottom: "label"
+  top: "accuracy"
+  include {
+    phase: TEST
   }
 }
 layer {
-  name: "cls_prob"
-  type: "Softmax"
-  bottom: "cls_score"
-  top: "cls_prob"
+  name: "loss"
+  type: "SoftmaxWithLoss"
+  bottom: "fc8_cls"
+  bottom: "label"
+  top: "loss"
 }
