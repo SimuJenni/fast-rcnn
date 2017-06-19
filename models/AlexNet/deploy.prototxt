@@ -55,7 +55,6 @@ layer {
     num_output: 96
     kernel_size: 11
     stride: 4
-    pad: 5
   }
 }
 layer {
@@ -76,7 +75,6 @@ layer {
     pool: MAX
     kernel_size: 3
     stride: 2
-    pad: 1
   }
 }
 layer {
@@ -128,7 +126,6 @@ layer {
     pool: MAX
     kernel_size: 3
     stride: 2
-    pad: 1
   }
 }
 layer {
