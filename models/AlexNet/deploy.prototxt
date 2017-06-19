@@ -1,4 +1,4 @@
-name: "AlexNetV2"
+name: "AlexNet"
 force_backward: true
 layer {
   name: "data"
