@@ -1,4 +1,4 @@
-name: "AlexNetV2"
+name: "AlexNet"
 input: "data"
 input_shape {
   dim: 1
@@ -22,13 +22,13 @@ layer {
   }
   param {
     lr_mult: 2
-    decay_mult: 0
+    decay_mult: 1
   }
   convolution_param {
-    num_output: 64
-    pad: 5
+    num_output: 96
     kernel_size: 11
     stride: 4
+    pad: 5
   }
 }
 layer {
@@ -53,9 +53,20 @@ layer {
   }
 }
 layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "Pooling1"
+  top: "norm1"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
   name: "conv2"
   type: "Convolution"
-  bottom: "Pooling1"
+  bottom: "norm1"
   top: "Convolution2"
   param {
     lr_mult: 1
@@ -66,9 +77,10 @@ layer {
     decay_mult: 1
   }
   convolution_param {
-    num_output: 192
+    num_output: 256
     pad: 2
     kernel_size: 5
+    group: 2
   }
 }
 layer {
@@ -93,9 +105,20 @@ layer {
   }
 }
 layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "Pooling2"
+  top: "norm2"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
   name: "conv3"
   type: "Convolution"
-  bottom: "Pooling2"
+  bottom: "norm2"
   top: "Convolution3"
   param {
     lr_mult: 1
@@ -137,6 +160,7 @@ layer {
     num_output: 384
     pad: 1
     kernel_size: 3
+    group: 2
   }
 }
 layer {
@@ -165,6 +189,7 @@ layer {
     num_output: 256
     pad: 1
     kernel_size: 3
+    group: 2
   }
 }
 layer {
@@ -210,9 +235,6 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct1"
   top: "InnerProduct1"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "drop6"
@@ -245,9 +267,6 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct2"
   top: "InnerProduct2"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "drop7"
