@@ -11,7 +11,7 @@ layer {
   transform_param {
     mirror: true
     crop_size: 227
-    mean_value: [103, 116, 123]
+    mean_value: [127.5, 127.5, 127.5]
     scale: 0.007843
   }
   data_param {
@@ -31,7 +31,7 @@ layer {
   transform_param {
     mirror: false
     crop_size: 227
-    mean_value: [103, 116, 123]
+    mean_value: [127.5, 127.5, 127.5]
     scale: 0.007843
   }
   data_param {
@@ -260,9 +260,6 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct1"
   top: "InnerProduct1"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "drop6"
@@ -295,9 +292,6 @@ layer {
   type: "ReLU"
   bottom: "InnerProduct2"
   top: "InnerProduct2"
-  relu_param{
-    negative_slope: 0.2
-  }
 }
 layer {
   name: "drop7"
